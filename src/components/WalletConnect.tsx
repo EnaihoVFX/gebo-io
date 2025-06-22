@@ -5,6 +5,7 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { injected } from 'wagmi/connectors';
 
 export default function WalletConnect() {
+  const [isClient, setIsClient] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showNetworkWarning, setShowNetworkWarning] = useState(false);
@@ -13,6 +14,10 @@ export default function WalletConnect() {
   const { address, isConnected, status } = useAccount();
   const { connect, isPending: isConnectPending } = useConnect();
   const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     // Get current chain ID from window.ethereum
@@ -133,6 +138,8 @@ export default function WalletConnect() {
       default: return 'bg-gray-500';
     }
   };
+
+  if (!isClient) return null;
 
   if (isConnected) {
     return (

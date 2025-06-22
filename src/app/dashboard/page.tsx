@@ -6,6 +6,7 @@ import { jeniusMCP, WalletAnalysis, MarketSignal } from '@/utils/jeniusMCP';
 import { cometLogger } from '@/utils/cometLogger';
 import AudienceInsights from '@/components/AudienceInsights';
 import CometExperimentTracker from '@/components/CometExperimentTracker';
+import Link from 'next/link';
 
 interface MintedVideo {
   name: string;
@@ -25,6 +26,8 @@ interface MintedVideo {
   estimatedRevenue: number;
   creatorTokenStake: number;
   isListed: boolean;
+  id: string;
+  thumbnailUrl: string;
 }
 
 interface VideoStake {
@@ -198,7 +201,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-12">
@@ -375,7 +378,9 @@ export default function DashboardPage() {
                 <div key={index} className="border border-gray-800 rounded-lg p-4 bg-gray-800/80 hover:shadow-xl transition-shadow">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <h3 className="font-semibold text-white">{video.title || video.name}</h3>
+                      <Link href={`/video/${video.id}`} className="block hover:underline">
+                        <h3 className="font-semibold text-white">{video.title || video.name}</h3>
+                      </Link>
                       <p className="text-sm text-gray-400 mt-1">{video.description}</p>
                       {/* Metadata tags */}
                       <div className="flex flex-wrap gap-2 mt-2">
@@ -440,7 +445,14 @@ export default function DashboardPage() {
                         </button>
                       </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex flex-col items-center space-y-2 ml-4">
+                      <Link href={`/video/${video.id}`} className="block">
+                        <img
+                          src={video.thumbnailUrl}
+                          alt={video.title || video.name}
+                          className="w-32 h-20 object-cover rounded-lg border border-gray-700 hover:opacity-90 transition-opacity"
+                        />
+                      </Link>
                       <a
                         href={`https://mumbai.polygonscan.com/token/${video.tokenId}`}
                         target="_blank"

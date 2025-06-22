@@ -470,16 +470,22 @@ export default function MintPage() {
                     <h2 className="text-2xl font-bold text-white">Video Preview</h2>
                   </div>
                   <div className="relative rounded-xl overflow-hidden bg-gray-900">
-                    <video
-                      src={uploadData.videoUrl}
-                      className="w-full rounded-xl shadow-lg hover:shadow-purple-900/40 transition-shadow duration-300"
-                      controls
-                      poster={selectedThumbnail || undefined}
-                    />
+                    {uploadData && uploadData.videoUrl ? (
+                      <video
+                        src={uploadData.videoUrl}
+                        className="w-full rounded-xl shadow-lg hover:shadow-purple-900/40 transition-shadow duration-300"
+                        controls
+                        poster={selectedThumbnail || undefined}
+                      />
+                    ) : (
+                      <div className="w-full h-64 flex items-center justify-center bg-gray-800 rounded-xl text-gray-400">
+                        Video preview not available
+                      </div>
+                    )}
                   </div>
                   <div className="mt-4 flex items-center justify-between text-sm text-gray-400">
-                    <span>{uploadData.videoName}</span>
-                    <span>{formatFileSize(uploadData.videoSize)}</span>
+                    <span>{uploadData?.videoName}</span>
+                    <span>{formatFileSize(uploadData?.videoSize || 0)}</span>
                   </div>
                 </div>
 
@@ -1015,16 +1021,22 @@ export default function MintPage() {
                   <h2 className="text-2xl font-bold text-white">Video Preview</h2>
                 </div>
                 <div className="relative rounded-xl overflow-hidden bg-gray-900">
-                  <video
-                    src={uploadData.videoUrl}
-                    className="w-full rounded-xl shadow-lg hover:shadow-purple-900/40 transition-shadow duration-300"
-                    controls
-                    poster={selectedThumbnail || undefined}
-                  />
+                  {uploadData && uploadData.videoUrl ? (
+                    <video
+                      src={uploadData.videoUrl}
+                      className="w-full rounded-xl shadow-lg hover:shadow-purple-900/40 transition-shadow duration-300"
+                      controls
+                      poster={selectedThumbnail || undefined}
+                    />
+                  ) : (
+                    <div className="w-full h-64 flex items-center justify-center bg-gray-800 rounded-xl text-gray-400">
+                      Video preview not available
+                    </div>
+                  )}
                 </div>
                 <div className="mt-4 flex items-center justify-between text-sm text-gray-400">
-                  <span>{uploadData.videoName}</span>
-                  <span>{formatFileSize(uploadData.videoSize)}</span>
+                  <span>{uploadData?.videoName}</span>
+                  <span>{formatFileSize(uploadData?.videoSize || 0)}</span>
                 </div>
               </div>
 
