@@ -409,4 +409,16 @@
     width: 50px;
     height: 50px;
   }
+}
+
+.glassmorphic-featured-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(138,43,226,0.10) 50%, rgba(255,20,147,0.10) 100%);
+  border: 1.5px solid rgba(138,43,226,0.5);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  overflow: hidden;
+  z-index: 1;
 } 

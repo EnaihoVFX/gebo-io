@@ -107,31 +107,28 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Background lighting effects are handled globally */}
       <div className="relative z-10">
         {/* Featured Videos */}
-        <section className="px-6 pb-8">
+        <section className="px-4 pt-0 pb-1">
           <div className="max-w-7xl mx-auto">
             <FeaturedVideos />
           </div>
         </section>
-
-        {/* Vertical Videos (Shorts) - moved up, less space above */}
-        <section className="px-6 pb-12">
+        {/* Shorts (Vertical Videos) - move higher, reduce spacing */}
+        <section className="px-4 pt-1 pb-1">
           <div className="max-w-7xl mx-auto">
             <VerticalVideos />
           </div>
         </section>
-
-        {/* Regular Videos */}
-        <section className="px-6 pb-16">
+        {/* Regular Videos - no header */}
+        <section className="px-4 pt-4 pb-12">
           <div className="max-w-7xl mx-auto">
             <RegularVideos />
           </div>
         </section>
-
-        {/* Trending Videos */}
-        <section className="px-6 pb-16">
+        <div className="w-full h-0.5 bg-gradient-to-r from-pink-900 via-blue-900 to-purple-900 opacity-10 mb-2" />
+        {/* Trending Videos - no header */}
+        <section className="px-4 pt-4 pb-12">
           <div className="max-w-7xl mx-auto">
             <TrendingVideos />
           </div>

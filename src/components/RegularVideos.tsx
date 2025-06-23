@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 
@@ -282,6 +282,20 @@ const regularVideos = [
 ];
 
 export const RegularVideos: React.FC = () => {
+  const [realUsername, setRealUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const details = localStorage.getItem('onboardingDetails');
+      if (details) {
+        const parsed = JSON.parse(details);
+        if (parsed.username) {
+          setRealUsername(parsed.username.startsWith('@') ? parsed.username : '@' + parsed.username);
+        }
+      }
+    }
+  }, []);
+
   return (
     <div className="w-full bg-transparent">
       <section style={{ 
@@ -368,7 +382,7 @@ export const RegularVideos: React.FC = () => {
                         fontWeight: '600',
                         whiteSpace: 'nowrap'
                       }}>
-                        {video.user.name}
+                        {realUsername || video.user.name}
                       </span>
                     </div>
                     <h3 style={{ 

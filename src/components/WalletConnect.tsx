@@ -144,34 +144,24 @@ export default function WalletConnect() {
   if (isConnected) {
     return (
       <div className="relative">
-        <div className="flex items-center space-x-2">
-          {/* Network Indicator */}
-          <div className="flex items-center space-x-1">
-            <div className={`w-2 h-2 rounded-full ${getNetworkColor(currentChainId || 0)}`}></div>
-            <span className="text-xs text-gray-600 hidden sm:inline">
-              {currentChainId ? getNetworkName(currentChainId) : 'Unknown Network'}
-            </span>
+        <button
+          onClick={handleDisconnect}
+          className={`connect-wallet-btn connected`}
+          title="Disconnect"
+        >
+          <div className="btn-glow"></div>
+          <div className="btn-content">
+            <span>{address?.slice(0, 6)}...{address?.slice(-4)}</span>
+            <div className="status-indicator connected"></div>
           </div>
-
-          {/* Address Display */}
-          <div className="flex items-center space-x-2 bg-gray-100 rounded-lg px-3 py-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-sm font-medium text-gray-700">
-              {address?.slice(0, 6)}...{address?.slice(-4)}
-            </span>
-            <button
-              onClick={handleDisconnect}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              title="Disconnect"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+        </button>
+        {/* Network Indicator and Warning */}
+        <div className="absolute left-0 top-full mt-2 flex items-center space-x-2">
+          <div className={`w-2 h-2 rounded-full ${getNetworkColor(currentChainId || 0)}`}></div>
+          <span className="text-xs text-gray-600 hidden sm:inline">
+            {currentChainId ? getNetworkName(currentChainId) : 'Unknown Network'}
+          </span>
         </div>
-
-        {/* Network Warning */}
         {showNetworkWarning && (
           <div className="absolute top-full right-0 mt-2 w-64 bg-yellow-50 border border-yellow-200 rounded-lg p-3 shadow-lg z-50">
             <div className="flex items-start space-x-2">
@@ -204,23 +194,14 @@ export default function WalletConnect() {
       <button
         onClick={handleConnect}
         disabled={isConnecting || isConnectPending}
-        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+        className={`connect-wallet-btn${isConnecting || isConnectPending ? ' connecting' : ''}`}
       >
-        {isConnecting || isConnectPending ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            <span>Connecting...</span>
-          </>
-        ) : (
-          <>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            <span>Connect Wallet</span>
-          </>
-        )}
+        <div className="btn-glow"></div>
+        <div className="btn-content">
+          {(isConnecting || isConnectPending) && <div className="loading-spinner"></div>}
+          <span>{isConnecting || isConnectPending ? 'Connecting...' : 'Connect Wallet'}</span>
+        </div>
       </button>
-
       {/* Error Message */}
       {error && (
         <div className="absolute top-full right-0 mt-2 w-64 bg-red-50 border border-red-200 rounded-lg p-3 shadow-lg z-50">

@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+const PolygonMaticIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 38 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M29.447 7.081a4.13 4.13 0 0 0-4.13 0l-3.447 1.99-3.447-1.99a4.13 4.13 0 0 0-4.13 0l-3.447 1.99A4.13 4.13 0 0 0 7 12.061v3.98a4.13 4.13 0 0 0 2.223 3.59l3.447 1.99a4.13 4.13 0 0 0 4.13 0l3.447-1.99 3.447 1.99a4.13 4.13 0 0 0 4.13 0l3.447-1.99A4.13 4.13 0 0 0 37 16.041v-3.98a4.13 4.13 0 0 0-2.223-3.59l-3.447-1.99zm-1.723 2.98 3.447 1.99a1.13 1.13 0 0 1 .61.99v3.98a1.13 1.13 0 0 1-.61.99l-3.447 1.99a1.13 1.13 0 0 1-1.13 0l-3.447-1.99a1.13 1.13 0 0 1-.61-.99v-3.98a1.13 1.13 0 0 1 .61-.99l3.447-1.99a1.13 1.13 0 0 1 1.13 0zm-13.448 0a1.13 1.13 0 0 1 1.13 0l3.447 1.99a1.13 1.13 0 0 1 .61.99v3.98a1.13 1.13 0 0 1-.61.99l-3.447 1.99a1.13 1.13 0 0 1-1.13 0l-3.447-1.99a1.13 1.13 0 0 1-.61-.99v-3.98a1.13 1.13 0 0 1 .61-.99l3.447-1.99z" fill="#8247e5"/>
+  </svg>
+);
+
 const featuredVideos = [
   {
     url: 'https://picsum.photos/800/450?random=1',
@@ -13,7 +19,8 @@ const featuredVideos = [
       name: 'GamerPro',
       profilePic: 'https://picsum.photos/40/40?random=101',
       followers: 125000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=2',
@@ -27,7 +34,8 @@ const featuredVideos = [
       name: 'MusicMaker',
       profilePic: 'https://picsum.photos/40/40?random=102',
       followers: 89000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=3',
@@ -41,7 +49,8 @@ const featuredVideos = [
       name: 'ChefMax',
       profilePic: 'https://picsum.photos/40/40?random=103',
       followers: 234000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=4',
@@ -55,7 +64,8 @@ const featuredVideos = [
       name: 'ArtStudio',
       profilePic: 'https://picsum.photos/40/40?random=104',
       followers: 67000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=5',
@@ -69,7 +79,8 @@ const featuredVideos = [
       name: 'TechGuru',
       profilePic: 'https://picsum.photos/40/40?random=105',
       followers: 456000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=6',
@@ -83,7 +94,8 @@ const featuredVideos = [
       name: 'FitLife',
       profilePic: 'https://picsum.photos/40/40?random=106',
       followers: 178000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=7',
@@ -97,7 +109,8 @@ const featuredVideos = [
       name: 'TravelBug',
       profilePic: 'https://picsum.photos/40/40?random=107',
       followers: 203000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=8',
@@ -111,7 +124,8 @@ const featuredVideos = [
       name: 'ComedyKing',
       profilePic: 'https://picsum.photos/40/40?random=108',
       followers: 312000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=9',
@@ -125,7 +139,8 @@ const featuredVideos = [
       name: 'ScienceExplorer',
       profilePic: 'https://picsum.photos/40/40?random=109',
       followers: 156000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=10',
@@ -139,7 +154,8 @@ const featuredVideos = [
       name: 'FinanceGuru',
       profilePic: 'https://picsum.photos/40/40?random=110',
       followers: 134000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=11',
@@ -153,7 +169,8 @@ const featuredVideos = [
       name: 'TournamentPro',
       profilePic: 'https://picsum.photos/40/40?random=111',
       followers: 567000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
     url: 'https://picsum.photos/800/450?random=12',
@@ -167,7 +184,8 @@ const featuredVideos = [
       name: 'LiveMusic',
       profilePic: 'https://picsum.photos/40/40?random=112',
       followers: 789000
-    }
+    },
+    preview: 'https://www.w3schools.com/html/mov_bbb.mp4'
   }
 ];
 
@@ -185,8 +203,8 @@ export const FeaturedVideos: React.FC = () => {
   const itemAngle = 360 / featuredVideos.length;
 
   // Dynamic sizing - much larger radius to prevent overlap
-  const radius = Math.min(containerSize.width, containerSize.height) * 0.8;
-  const itemWidth = Math.min(containerSize.width * 0.25, 350);
+  const radius = Math.min(containerSize.width, containerSize.height) * 1.1;
+  const itemWidth = Math.min(containerSize.width * 0.35, 480);
   const itemHeight = itemWidth * 0.56; // 16:9 aspect ratio
 
   // Auto-rotation effect
@@ -303,7 +321,7 @@ export const FeaturedVideos: React.FC = () => {
         ref={containerRef}
         className="relative w-full flex items-center justify-center overflow-visible"
         style={{
-          padding: '10px 0',
+          padding: '32px 0',
           margin: '0',
           minHeight: '600px'
         }}
@@ -325,6 +343,9 @@ export const FeaturedVideos: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onMouseEnter={() => setIsAutoRotating(false)}
+          onMouseLeave={() => setIsAutoRotating(true)}
+          onTouchCancel={() => setIsAutoRotating(true)}
         >
           {/* 3D Carousel Items */}
           <div
@@ -374,141 +395,97 @@ export const FeaturedVideos: React.FC = () => {
                   }}
                 >
                   <div
-                    className={`relative w-full h-full rounded-2xl overflow-hidden group ${
-                      isActive 
-                        ? 'shadow-2xl shadow-blue-500/40 hover:shadow-2xl hover:shadow-blue-400/60 hover:scale-105' 
-                        : 'shadow-xl shadow-black/20 hover:shadow-lg hover:shadow-white/20'
-                    }`}
+                    className={`relative w-full h-full rounded-2xl overflow-hidden group glassmorphic-featured-card ${isActive ? 'shadow-2xl hover:scale-105' : 'shadow-xl hover:shadow-lg'}`}
                     style={{
-                      border: isActive 
-                        ? '1px solid rgba(59, 130, 246, 0.7)' 
-                        : '1px solid rgba(255, 255, 255, 0.1)',
+                      border: '1.5px solid rgba(255,255,255,0.35)',
+                      background: 'rgba(255,255,255,0.22)',
+                      backdropFilter: 'blur(24px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                      boxShadow: isActive ? '0 8px 32px 0 rgba(31, 38, 135, 0.18)' : '0 4px 16px 0 rgba(31, 38, 135, 0.08)',
                       transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     }}
                   >
                     <img
                       src={video.url}
                       alt={video.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:opacity-0"
                       draggable={false}
                     />
-                    
+                    {video.preview && (
+                      <video
+                        src={video.preview}
+                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    )}
                     {/* Radiant glow overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    
                     {/* Live indicator (top-left) */}
-                    <div className="absolute top-3 left-3 flex items-center space-x-2">
-                      <div className="flex items-center bg-red-600 px-2 py-1 rounded-full">
-                        <div className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse"></div>
-                        <span className="text-white text-xs font-bold">LIVE</span>
-                      </div>
-                    </div>
-
-                    {/* Live stats overlay (only for active/center video) */}
-                    {isActive && (
-                      <div className="absolute top-3 right-3 flex flex-col items-end space-y-2">
-                        {/* Viewers count */}
-                        <div 
-                          className="px-3 py-1 rounded-full text-[10px] font-semibold text-white flex items-center space-x-1"
-                          style={{
-                            background: 'rgba(0, 0, 0, 0.7)',
-                            backdropFilter: 'blur(8px)'
-                          }}
-                        >
-                          <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                          <span>{video.viewers?.toLocaleString()}</span>
-                        </div>
-                        
-                        {/* Token valuation */}
-                        <div 
-                          className="px-3 py-1 rounded-full text-[10px] font-bold text-purple-300 flex items-center space-x-1"
-                          style={{
-                            background: 'rgba(0, 0, 0, 0.7)',
-                            backdropFilter: 'blur(8px)'
-                          }}
-                        >
-                          <svg className="w-2.5 h-2.5 text-purple-400" viewBox="0 0 38 33" fill="currentColor">
-                            <path d="M29 10.2c-.7-.4-1.6-.4-2.4 0L21 13.5l-3.8 2.1-5.5 3.3c-.7.4-1.6-.4-2.4 0L7 17.2c-.7-.4-1.2-1.2-1.2-2.1v-4c0-.8.4-1.6 1.2-2.1l2.3-1.3c.7-.4 1.6-.4 2.4 0L14 9.1c.7.4 1.2 1.2 1.2 2.1v3.3l3.8-2.2V9c0-.8-.4-1.6-1.2-2.1l-6-3.5c-.7-.4-1.6-.4-2.4 0L3.2 7.8c-.7.4-1.2 1.2-1.2 2.1v7.3c0 .8.4 1.6 1.2 2.1l6.2 3.6c.7.4 1.6.4 2.4 0L17 20.8l3.8-2.1 5.5-3.2c.7-.4 1.6-.4 2.4 0l2.3 1.3c.7.4 1.2 1.2 1.2 2.1v4c0 .8-.4 1.6-1.2 2.1L29 26.3c-.7.4-1.6.4-2.4 0l-2.3-1.3c-.7-.4-1.2-1.2-1.2-2.1V19.6l-3.8 2.2v3.3c0 .8.4 1.6 1.2 2.1l6.2 3.6c.7.4 1.6.4 2.4 0l6.2-3.6c.7-.4 1.2-1.2 1.2-2.1V17.8c0-.8-.4-1.6-1.2-2.1L29 10.2z"/>
-                          </svg>
-                          <span>{video.valuation}</span>
-                          <span className={`ml-2 flex items-center text-[10px] font-bold ${video.change.direction === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                            {video.change.direction === 'up' ? '▲' : '▼'}&nbsp;{video.change.percent}%
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Stream title bar */}
-                    <div 
-                      className="absolute bottom-0 left-0 right-0 p-4"
-                      style={{
-                        background: 'linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4))'
-                      }}
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        {/* User Profile */}
-                        <div className="flex items-center space-x-2">
-                          <img
-                            src={video.user.profilePic}
-                            alt={video.user.name}
-                            className="w-6 h-6 rounded-full border border-white/20"
-                            draggable={false}
-                          />
-                          <span className={`text-white font-semibold ${
-                            isActive ? 'text-sm' : 'text-xs'
-                          }`}>
-                            {video.user.name}
-                          </span>
-                          <span className={`text-gray-400 ${
-                            isActive ? 'text-[10px]' : 'text-[8px]'
-                          }`}>
-                            {video.user.followers >= 1000000 
-                              ? `${(video.user.followers / 1000000).toFixed(1)}M` 
-                              : video.user.followers >= 1000 
-                                ? `${(video.user.followers / 1000).toFixed(1)}K` 
-                                : video.user.followers
-                            }
-                          </span>
-                        </div>
-
-                        {/* Follow Button */}
-                        <button 
-                          className={`px-3 py-1 rounded-full font-semibold transition-all duration-200 hover:scale-105 border ${
-                            isActive 
-                              ? 'bg-purple-600 hover:bg-purple-500 text-white text-xs shadow-lg shadow-purple-500/30 border-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' 
-                              : 'bg-purple-500/60 hover:bg-purple-500/80 text-white text-[10px] shadow-md shadow-purple-500/20 border-blue-400/60 shadow-[0_0_6px_rgba(96,165,250,0.4)]'
-                          }`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            // Handle follow logic here
-                          }}
-                        >
-                          Follow
-                        </button>
-                      </div>
-                      
-                      <h3 className={`text-white font-semibold truncate ${
-                        isActive ? 'text-lg' : 'text-sm'
-                      }`}>
-                        {video.title}
-                      </h3>
-                      {!isActive && (
-                        <div className="flex items-center space-x-2 mt-1 text-[9px] text-gray-300">
-                          <span className="flex items-center space-x-0.5">
-                            <div className="w-1 h-1 bg-green-400 rounded-full"></div>
-                            <span>{video.viewers?.toLocaleString()}</span>
-                          </span>
-                          <span className="flex items-center space-x-0.5 text-purple-300">
-                            <svg className="w-2 h-2 text-purple-400" viewBox="0 0 38 33" fill="currentColor">
-                              <path d="M29 10.2c-.7-.4-1.6-.4-2.4 0L21 13.5l-3.8 2.1-5.5 3.3c-.7.4-1.6-.4-2.4 0L7 17.2c-.7-.4-1.2-1.2-1.2-2.1v-4c0-.8.4-1.6 1.2-2.1l2.3-1.3c.7-.4 1.6-.4 2.4 0L14 9.1c.7.4 1.2 1.2 1.2 2.1v3.3l3.8-2.2V9c0-.8-.4-1.6-1.2-2.1l-6-3.5c-.7-.4-1.6-.4-2.4 0L3.2 7.8c-.7.4-1.2 1.2-1.2 2.1v7.3c0 .8.4 1.6 1.2 2.1l6.2 3.6c.7.4 1.6.4 2.4 0L17 20.8l3.8-2.1 5.5-3.2c.7-.4 1.6-.4 2.4 0l2.3 1.3c.7.4 1.2 1.2 1.2 2.1v4c0 .8-.4 1.6-1.2 2.1L29 26.3c-.7.4-1.6.4-2.4 0l-2.3-1.3c-.7-.4-1.2-1.2-1.2-2.1V19.6l-3.8 2.2v3.3c0 .8.4 1.6 1.2 2.1l6.2 3.6c.7.4 1.6.4 2.4 0l6.2-3.6c.7-.4 1.2-1.2 1.2-2.1V17.8c0-.8-.4-1.6-1.2-2.1L29 10.2z"/>
-                            </svg>
-                            <span>{video.valuation}</span>
-                            <span className={`ml-1 flex items-center text-[9px] ${video.change.direction === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                             {video.change.direction === 'up' ? '▲' : '▼'}&nbsp;{video.change.percent}%
+                    <div className="absolute top-2 left-2 flex items-center space-x-1">
+                      {video.isLive && <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Live</span>}
+                      <span className="text-[10px] text-white/80 font-semibold">{video.viewers.toLocaleString()} watching</span>
+                      <span className="flex items-center gap-1 bg-white/70 rounded-full px-2 py-0.5 shadow-md ml-2" style={{backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)'}}>
+                        <img src="/polygon-matic-logo.svg" alt="Polygon MATIC" width={14} height={14} style={{display:'inline',verticalAlign:'middle'}} />
+                        <span className="text-[10px] font-semibold text-[#8247e5] ml-1 flex items-center">
+                          {video.valuation || '2,340'}
+                          {/* Percentage change, colored by direction */}
+                          {video.change && (
+                            <span style={{
+                              color: video.change.direction === 'up' ? '#22c55e' : '#ef4444',
+                              marginLeft: '4px',
+                              fontWeight: 700
+                            }}>
+                              {video.change.direction === 'up' ? '+' : '-'}{Math.abs(video.change.percent).toFixed(1)}%
                             </span>
-                          </span>
-                        </div>
-                      )}
+                          )}
+                          {video.change && video.change.direction === 'up' && (
+                            <svg width="10" height="10" viewBox="0 0 10 10" className="ml-1" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 8V2M5 2L2 5M5 2l3 3" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
+                          {video.change && video.change.direction === 'down' && (
+                            <svg width="10" height="10" viewBox="0 0 10 10" className="ml-1" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 2v6M5 8l3-3M5 8L2 5" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
+                        </span>
+                      </span>
+                    </div>
+                    {/* Minimal user info (bottom-left) */}
+                    <div className="absolute bottom-2 left-2 flex items-center space-x-2 bg-black/40 rounded-lg px-2 py-1">
+                      <img src={video.user.profilePic} alt={video.user.name} className="w-6 h-6 rounded-full border border-white/30" />
+                      <span className="text-[10px] text-white font-medium truncate max-w-[80px]">{video.user.name}</span>
+                      {/* Small follow button with plus */}
+                      <button
+                        style={{
+                          width: '20px',
+                          height: '20px',
+                          borderRadius: '50%',
+                          background: 'rgba(255,255,255,0.18)',
+                          border: '1px solid rgba(255,255,255,0.25)',
+                          color: '#8247e5',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 900,
+                          fontSize: '14px',
+                          marginLeft: '4px',
+                          boxShadow: '0 2px 8px rgba(130,71,229,0.08)',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          backdropFilter: 'blur(8px)',
+                        }}
+                        title="Follow"
+                        aria-label="Follow"
+                        tabIndex={0}
+                        onMouseEnter={e => (e.currentTarget.style.background = '#8247e5', e.currentTarget.style.color = '#fff')}
+                        onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)', e.currentTarget.style.color = '#8247e5')}
+                      >
+                        +
+                      </button>
+                    </div>
+                    {/* Minimal title (bottom) */}
+                    <div className="absolute bottom-2 right-2 bg-black/40 rounded-lg px-2 py-1">
+                      <span className="text-[10px] text-white font-semibold truncate max-w-[120px]">{video.title}</span>
                     </div>
                   </div>
                 </div>

@@ -50,23 +50,75 @@ export default function Sidebar({ isOpen }: SidebarProps) {
           left: 0;
           width: 260px;
           height: 100vh;
-          background: 
-            linear-gradient(135deg, 
-              rgba(15, 15, 15, 0.95) 0%,
-              rgba(25, 25, 35, 0.9) 50%,
-              rgba(15, 15, 15, 0.95) 100%
-            );
-          border-right: 1px solid rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(25px) saturate(150%);
-          -webkit-backdrop-filter: blur(25px) saturate(150%);
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
           transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
           z-index: 1000;
-          overflow: hidden;
-          transform: ${isOpen ? 'translateX(0)' : 'translateX(-100%)'};
-          box-shadow: 
-            inset -1px 0 0 rgba(255, 255, 255, 0.1),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-            5px 0 25px rgba(0, 0, 0, 0.3);
+          overflow: visible;
+          transform: ${isOpen ? 'translateX(0)' : 'translateX(-110%)'};
+          animation: none;
+        }
+        .glass-sidebar .sidebar-animated-border,
+        .sidebar-bubble,
+        .sidebar-bubble-1,
+        .sidebar-bubble-2,
+        .sidebar-bubble-3,
+        .ice-cube-edge {
+          display: none !important;
+        }
+        .glass-sidebar .sidebar-animated-border {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          pointer-events: none;
+          border-radius: 32px;
+          border: 3px solid transparent;
+          background: linear-gradient(120deg, #a855f7 0%, #0ea5e9 100%) border-box;
+          mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+          animation: borderGlow 3s linear infinite;
+        }
+        @keyframes borderGlow {
+          0% { filter: blur(0px) brightness(1); }
+          50% { filter: blur(2px) brightness(1.2); }
+          100% { filter: blur(0px) brightness(1); }
+        }
+        .sidebar-bubble {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          filter: blur(24px);
+          opacity: 0.7;
+          z-index: 1;
+        }
+        .sidebar-bubble-1 {
+          width: 120px; height: 120px; top: 10%; left: -40px;
+          background: radial-gradient(circle, #a855f7 0%, transparent 80%);
+          animation: float1 8s ease-in-out infinite;
+        }
+        .sidebar-bubble-2 {
+          width: 80px; height: 80px; top: 60%; right: -30px;
+          background: radial-gradient(circle, #0ea5e9 0%, transparent 80%);
+          animation: float2 10s ease-in-out infinite reverse;
+        }
+        .sidebar-bubble-3 {
+          width: 100px; height: 100px; bottom: 10%; left: 60%;
+          background: radial-gradient(circle, #f472b6 0%, transparent 80%);
+          animation: float3 12s ease-in-out infinite;
+        }
+        @keyframes float1 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-18px); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes float3 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-14px); }
         }
 
         .ice-cube-edge {
@@ -522,6 +574,10 @@ export default function Sidebar({ isOpen }: SidebarProps) {
       `}</style>
 
       <aside className="glass-sidebar">
+        <div className="sidebar-animated-border"></div>
+        <div className="sidebar-bubble sidebar-bubble-1"></div>
+        <div className="sidebar-bubble sidebar-bubble-2"></div>
+        <div className="sidebar-bubble sidebar-bubble-3"></div>
         {/* Ice cube edge */}
         <div className="ice-cube-edge"></div>
         

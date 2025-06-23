@@ -7,7 +7,7 @@ import WalletConnectWrapper from "@/components/WalletConnectWrapper";
 import VideoSearch from "@/components/VideoSearch";
 import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Home, 
   TrendingUp, 
@@ -22,7 +22,7 @@ import {
   Video,
   Grid3X3
 } from "lucide-react";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,9 +32,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAdvancedFeatures, setShowAdvancedFeatures] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const onboardingComplete = localStorage.getItem('onboardingComplete');
+      if (!onboardingComplete && pathname !== '/onboarding') {
+        router.push('/onboarding');
+      }
+    }
+  }, [pathname]);
+
+  // Close sidebar when manual-edit is open
+  useEffect(() => {
+    if (pathname === '/manual-edit') {
+      setSidebarOpen(false);
+    }
+  }, [pathname]);
 
   return (
     <html lang="en">
@@ -118,10 +135,16 @@ export default function RootLayout({
                       <div className="icon-glow"></div>
                       <Grid3X3 className="w-5 h-5" />
                     </button>
+                    <button className="glass-icon-btn">
+                      <div className="icon-glow"></div>
+                      <UploadIcon className="w-5 h-5" />
+                    </button>
                     <WalletConnectWrapper />
-                    <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                      U
-                    </div>
+                    <Link href="/profile">
+                      <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-sm cursor-pointer">
+                        U
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </header>
@@ -129,7 +152,7 @@ export default function RootLayout({
           )}
 
           {/* Sidebar - Glassmorphism Style (Overlay) */}
-          <Sidebar isOpen={sidebarOpen} />
+          {sidebarOpen && <Sidebar isOpen={sidebarOpen} />}
 
           {/* Main Content */}
           <main className="transition-all duration-300 min-h-screen bg-black">

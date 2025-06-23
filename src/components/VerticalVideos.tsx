@@ -224,10 +224,20 @@ export const VerticalVideos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [onboardingDetails, setOnboardingDetails] = useState<any>(null);
   const videosPerRow = 6;
   const totalPages = Math.ceil(verticalVideos.length / videosPerRow);
   const startIndex = currentPage * videosPerRow;
   const visibleVideos = verticalVideos.slice(startIndex, startIndex + videosPerRow);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const details = localStorage.getItem('onboardingDetails');
+      if (details) {
+        setOnboardingDetails(JSON.parse(details));
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -255,13 +265,27 @@ export const VerticalVideos: React.FC = () => {
 
   return (
     <div className="w-full bg-transparent">
+      {onboardingDetails && onboardingDetails.username && (
+        <div style={{
+          color: '#a855f7',
+          fontWeight: 600,
+          fontSize: '15px',
+          marginBottom: '8px',
+          marginLeft: '8px',
+          letterSpacing: '0.01em',
+          textShadow: '0 2px 8px #0008',
+        }}>
+          {onboardingDetails.username.startsWith('@')
+            ? onboardingDetails.username
+            : '@' + onboardingDetails.username}
+        </div>
+      )}
       <section style={{ 
         width: '100%',
-        marginBottom: '48px',
-        padding: '24px 0',
+        marginBottom: '24px',
+        padding: '12px 0',
         overflow: 'visible'
       }}>
-        <h2 className="text-2xl font-bold text-white mb-6">Shorts</h2>
         <div
           style={{
             position: 'relative',
@@ -272,137 +296,19 @@ export const VerticalVideos: React.FC = () => {
             overflow: 'visible',
             transform: 'scale(1.02)',
             transformOrigin: 'center top',
-            marginBottom: '48px',
+            marginBottom: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${videosPerRow}, 1fr)`,
-            gap: '16px',
-            padding: '16px',
-            width: '100%',
-            transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
-            opacity: isTransitioning ? 0.8 : 1,
-          }}>
-            {visibleVideos.map((video, index) => (
-              <div
-                key={startIndex + index}
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '8px',
-                  animation: `fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`
-                }}
-              >
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    paddingTop: '177.78%', // 9:16 aspect ratio
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    background: '#1a1a1a',
-                    cursor: 'pointer',
-                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                    border: '1px solid #333333'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05) translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.5)';
-                    e.currentTarget.style.borderColor = '#4a4a4a';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1) translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-                    e.currentTarget.style.borderColor = '#333333';
-                  }}
-                >
-                  <img
-                    src={video.url}
-                    alt={video.title}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
-                <div style={{
-                  padding: '0 4px',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                    <img
-                      src={video.user.profilePic}
-                      alt={video.user.name}
-                      style={{
-                        width: '18px',
-                        height: '18px',
-                        borderRadius: '50%',
-                        border: '2px solid #333333'
-                      }}
-                    />
-                    <span style={{ 
-                      color: '#ffffff', 
-                      fontSize: '12px',
-                      fontWeight: '600',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {video.user.name}
-                    </span>
-                  </div>
-                  <h3 style={{ 
-                    color: '#ffffff', 
-                    margin: 0, 
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    textAlign: 'left'
-                  }}>
-                    {video.title}
-                  </h3>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                    }}>
-                        <span style={{ fontSize: '12px', color: '#a855f7', fontWeight: '600' }}>{video.valuation} POL</span>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            color: video.change.direction === 'up' ? '#4ade80' : '#f87171',
-                        }}>
-                            {video.change.direction === 'up' ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
-                            <span style={{ fontSize: '12px', fontWeight: '600' }}>{video.change.percent.toFixed(1)}%</span>
-                        </div>
-                    </div>
-                    <span style={{ fontSize: '11px', color: '#888888' }}>{`${(video.viewers / 1000).toFixed(1)}k views`}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
           {totalPages > 1 && (
             <>
               <button
                 onClick={handlePrev}
                 style={{
-                  position: 'absolute',
-                  left: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
                   background: 'rgba(0, 0, 0, 0.8)',
                   border: 'none',
                   borderRadius: '50%',
@@ -417,29 +323,150 @@ export const VerticalVideos: React.FC = () => {
                   opacity: isHovered ? 1 : 0,
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
                   zIndex: 10,
-                  animation: isHovered ? 'slideInLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none'
+                  marginRight: '8px',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(0, 0, 0, 0.9)';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.15)';
+                  e.currentTarget.style.transform = 'scale(1.15)';
                   e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                  e.currentTarget.style.transform = 'scale(1)';
                   e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
                 }}
               >
                 <ChevronLeft size={24} />
               </button>
-
+            </>
+          )}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${videosPerRow}, 1fr)`,
+            gap: '16px',
+            padding: '8px',
+            width: '100%',
+            transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
+            opacity: isTransitioning ? 0.8 : 1,
+          }}>
+            {visibleVideos.length === 0 ? (
+              <div style={{ gridColumn: `span ${videosPerRow}`, textAlign: 'center', color: '#888', fontSize: '16px', padding: '32px 0' }}>
+                No shorts available.
+              </div>
+            ) : (
+              visibleVideos.map((video, index) => (
+                <div
+                  key={startIndex + index}
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                    animation: `fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      paddingTop: '177.78%', // 9:16 aspect ratio
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      background: '#1a1a1a',
+                      cursor: 'pointer',
+                      transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                      border: '1px solid #333333'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.05) translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.5)';
+                      e.currentTarget.style.borderColor = '#4a4a4a';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                      e.currentTarget.style.borderColor = '#333333';
+                    }}
+                  >
+                    <img
+                      src={video.url}
+                      alt={video.title}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                  <div style={{
+                    padding: '0 4px',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                      <img
+                        src={video.user.profilePic}
+                        alt={video.user.name}
+                        style={{
+                          width: '18px',
+                          height: '18px',
+                          borderRadius: '50%',
+                          border: '2px solid #333333'
+                        }}
+                      />
+                      <span style={{ 
+                        color: '#ffffff', 
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        whiteSpace: 'nowrap'
+                      }}>
+                        {video.user.name}
+                      </span>
+                    </div>
+                    <h3 style={{ 
+                      color: '#ffffff', 
+                      margin: 0, 
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      textAlign: 'left'
+                    }}>
+                      {video.title}
+                    </h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
+                      <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                      }}>
+                          <span style={{ fontSize: '12px', color: '#a855f7', fontWeight: '600' }}>{video.valuation} POL</span>
+                          <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              color: video.change.direction === 'up' ? '#4ade80' : '#f87171',
+                          }}>
+                              {video.change.direction === 'up' ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
+                              <span style={{ fontSize: '12px', fontWeight: '600' }}>{video.change.percent.toFixed(1)}%</span>
+                          </div>
+                      </div>
+                      <span style={{ fontSize: '11px', color: '#888888' }}>{`${(video.viewers / 1000).toFixed(1)}k views`}</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+          {totalPages > 1 && (
+            <>
               <button
                 onClick={handleNext}
                 style={{
-                  position: 'absolute',
-                  right: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
                   background: 'rgba(0, 0, 0, 0.8)',
                   border: 'none',
                   borderRadius: '50%',
@@ -454,16 +481,16 @@ export const VerticalVideos: React.FC = () => {
                   opacity: isHovered ? 1 : 0,
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
                   zIndex: 10,
-                  animation: isHovered ? 'slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none'
+                  marginLeft: '8px',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(0, 0, 0, 0.9)';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.15)';
+                  e.currentTarget.style.transform = 'scale(1.15)';
                   e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                  e.currentTarget.style.transform = 'scale(1)';
                   e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
                 }}
               >
